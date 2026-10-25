@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c0e12">
+<title>Kickboxing GP</title>
+<!-- SDK de Poki (anuncios y avisos de partida). Si no carga, el juego funciona igual -->
+<script src="https://game-cdn.poki.com/scripts/v2/poki-sdk.js"></script>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="topbar" id="topbar">
+  <div class="tl">
+    <button class="chip" id="btn-q" type="button"></button>
+    <button class="chip ic" id="btn-snd" type="button" aria-pressed="true">🔊</button>
+  </div>
+  <nav class="lang" id="langbar" role="group" data-i18n-aria="menu.lang">
+    <button type="button" class="chip" data-lang="es" lang="es" aria-pressed="false">Español</button>
+    <button type="button" class="chip" data-lang="en" lang="en" aria-pressed="false">English</button>
+    <button type="button" class="chip" data-lang="ar" lang="ar" aria-pressed="false">العربية</button>
+    <button type="button" class="chip" data-lang="zh" lang="zh" aria-pressed="false">中文</button>
+  </nav>
+</header>
+
+<section id="scr-menu">
+  <div class="mm">
+    <div class="logo"><div class="lg"><span>KICKBOXING</span> <span class="g">GP</span></div></div>
+    <div class="demo">
+      <canvas id="menucv" width="640" height="360" role="img" data-i18n-aria="demo.alt"></canvas>
+      <div id="dui" aria-hidden="true"><b class="dl l" id="dl1"></b><b class="dl r" id="dl2"></b></div>
+    </div>
+    <div class="mbtns">
+      <button class="btn big" id="btn-play" type="button"></button>
+      <div class="row3">
+        <button class="btn big blue" id="btn-versus" type="button" data-i18n="menu.versus"></button>
+        <button class="btn big teal" id="btn-locker" type="button" data-i18n="menu.locker"></button>
+      </div>
+      <div class="row2">
+        <div class="field"><label class="sr" for="pname" data-i18n="menu.name"></label><input id="pname" type="text" maxlength="14" autocomplete="off" data-i18n-ph="menu.name_ph"></div>
+        <button class="btn ghost sm" id="btn-photos" type="button" data-i18n="menu.photos"></button>
+        <button class="btn ghost sm" id="btn-new" type="button" hidden data-i18n="menu.reset"></button>
+      </div>
+    </div>
+    <details class="how" id="how" open>
+      <summary data-i18n="how.title"></summary>
+      <div class="inner">
+        <p class="goal" data-i18n="how.goal"></p>
+        <div class="keytab" id="keytab"></div>
+        <ul class="tips">
+          <li data-i18n-html="tip1"></li>
+          <li data-i18n-html="tip2"></li>
+          <li data-i18n-html="tip3"></li>
+          <li data-i18n-html="tip4"></li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="scr-tour" hidden>
+  <div class="head">
+    <div>
+      <div class="eyebrow" data-i18n="tour.eyebrow"></div>
+      <h2 data-i18n="tour.title"></h2>
+    </div>
+    <div class="row">
+      <span class="wallet"><span id="wallet-t"></span><button type="button" class="addc" data-adcoins data-i18n-aria="ad.plus" data-i18n-title="ad.plus">+</button></span>
+      <button class="btn ghost sm" data-go="locker" data-i18n="menu.locker"></button>
+      <button class="btn ghost sm" data-go="menu" data-i18n="nav.menu"></button>
+      <button class="btn ghost sm" data-go="editor" data-i18n="nav.photos"></button>
+    </div>
+  </div>
+  <div id="nextbar"></div>
+  <div class="panel bkp">
+    <h3 data-i18n="tour.bracket"></h3>
+    <div class="bkw" id="bkw" tabindex="0" role="group" data-i18n-aria="tour.bracket"><div id="bracket"></div></div>
+  </div>
+  <div class="cols2">
+    <div class="panel stack">
+      <h3 data-i18n="train.title"></h3>
+      <p class="mute" style="font-size:14px" data-i18n="train.desc"></p>
+      <div class="upg" id="upg"></div>
+      <p class="mute rec" id="record"></p>
+    </div>
+    <div class="panel stack">
+      <h3 data-i18n="st.title"></h3>
+      <div class="stand" id="stand"></div>
+    </div>
+  </div>
+</section>
+
+<section id="scr-fight" hidden>
+  <div class="bar-top">
+    <button class="btn ghost sm" id="btn-pause" type="button"></button>
+    <button class="btn ghost sm" id="btn-exit" type="button" data-i18n="fight.exit"></button>
+  </div>
+  <div class="fw">
+    <div id="tp2" class="tp flip"></div>
+    <div class="stage">
+      <div class="cvbox" id="cvbox">
+        <canvas id="cv" width="960" height="540" role="img" data-i18n-aria="fight.alt"></canvas>
+        <!-- marcador y mensajes: HTML de 960x540 que se escala al tamaño del escenario -->
+        <div id="ui" aria-hidden="true">
+          <div class="vig"></div>
+          <div id="flash"></div>
+          <div id="hud">
+            <img class="pt p1" id="hpt1" alt="" draggable="false"><img class="pt p2" id="hpt2" alt="" draggable="false">
+            <div class="hb p1" id="hb1"><i class="gh" id="hg1"></i><i class="fl" id="hf1"></i></div>
+            <div class="hb p2" id="hb2"><i class="gh" id="hg2"></i><i class="fl" id="hf2"></i></div>
+            <div class="nm st p1" id="hnm1"></div><div class="nm st p2" id="hnm2"></div>
+            <div class="nk p1" id="hnk1"></div><div class="nk p2" id="hnk2"></div>
+            <svg class="clk" viewBox="0 0 132 66"><defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d222d"/><stop offset="1" stop-color="#0b0d12"/></linearGradient></defs><polygon points="1.5,1.5 130.5,1.5 120.5,64.5 11.5,64.5" fill="url(#cg)" stroke="#000" stroke-width="3"/><polygon points="1.5,1.5 130.5,1.5 120.5,64.5 11.5,64.5" fill="none" stroke="#e3a72a" stroke-width="1.5"/></svg>
+            <b class="tm" id="hclk">3:00</b><span class="rl" id="hrd"></span>
+            <span class="dots d1" id="hd1"><i></i><i></i><i></i></span><span class="dots d2" id="hd2"><i></i><i></i><i></i></span>
+          </div>
+          <div id="pops"></div>
+          <div class="ov intro" id="ov-intro" hidden>
+            <div class="ia st" id="in-arena"></div>
+            <div class="isub" id="in-sub"></div>
+            <div class="card c1"><img id="in-p1" alt="" draggable="false"><b class="st" id="in-n1"></b><i id="in-k1"></i><div class="fx" id="in-f1"></div></div>
+            <div class="vs st">VS</div>
+            <div class="card c2"><img id="in-p2" alt="" draggable="false"><b class="st" id="in-n2"></b><i id="in-k2"></i><div class="fx" id="in-f2"></div></div>
+          </div>
+          <div class="ov count" id="ov-count" hidden>
+            <div class="ck st" id="ct-k"></div>
+            <div class="cn st" id="ct-n">1</div>
+            <div class="cw st" id="ct-w"></div>
+            <div class="cp st" id="ct-p"></div>
+            <div class="cb" id="ct-bar"><i id="ct-b"></i></div>
+          </div>
+          <div class="banner" id="banner" hidden><h2 class="st" id="bn-t"></h2><p class="st" id="bn-a"></p><p class="st" id="bn-b"></p></div>
+          <div class="skip" id="skip" hidden></div>
+          <div class="msg st" id="msg" hidden></div>
+        </div>
+        <button type="button" class="gu" id="gu1" data-side="1" hidden></button>
+        <button type="button" class="gu flip" id="gu2" data-side="2" hidden></button>
+        <!-- en pausa: botón para ver los controles -->
+        <button type="button" class="btn ctrlb" id="btn-ctrl" hidden data-i18n="ctrl.btn"></button>
+      </div>
+    </div>
+    <div id="tp1" class="tp"></div>
+  </div>
+  <!-- ventana de controles (se abre desde la pausa) -->
+  <div class="ctrl-ov" id="ctrl-ov" hidden>
+    <div class="ctrl-card" role="dialog" aria-modal="true" aria-labelledby="ctrl-h">
+      <div class="ctrl-hd"><h2 id="ctrl-h" data-i18n="ctrl.title"></h2><button type="button" class="btn ghost sm" id="ctrl-x" data-i18n="ctrl.close"></button></div>
+      <p class="goal" data-i18n="how.goal"></p>
+      <div class="keytab" id="keytab2"></div>
+      <ul class="tips">
+        <li data-i18n-html="tip1"></li>
+        <li data-i18n-html="tip2"></li>
+        <li data-i18n-html="tip3"></li>
+        <li data-i18n-html="tip4"></li>
+      </ul>
+      <div class="ctrl-ft"><button type="button" class="btn" id="ctrl-go" data-i18n="fight.resume"></button></div>
+    </div>
+  </div>
+</section>
+
+<section id="scr-vs" hidden>
+  <div class="head">
+    <div><div class="eyebrow" data-i18n="vs.eyebrow"></div><h2 data-i18n="vs.title"></h2></div>
+    <button class="btn ghost sm" data-go="menu" data-i18n="nav.menu"></button>
+  </div>
+  <div class="vs-grid">
+    <div class="panel"><h3 style="color:var(--red)" data-i18n="how.p1"></h3><div class="vsf" id="vsf1"></div><div class="pick p1" id="pick1"></div><div class="kks" id="kk1"></div></div>
+    <div class="panel"><h3 style="color:var(--blue)" data-i18n="how.p2"></h3><div class="vsf" id="vsf2"></div><div class="pick p2" id="pick2"></div><div class="kks" id="kk2"></div></div>
+  </div>
+  <div class="vsgo"><button class="btn" id="btn-vsgo" type="button" data-i18n="vs.go"></button></div>
+</section>
+
+<section id="scr-result" hidden>
+  <div class="result" id="result"></div>
+</section>
+
+<section id="scr-locker" hidden>
+  <div class="head">
+    <div>
+      <div class="eyebrow" data-i18n="lk.eyebrow"></div>
+      <h2 data-i18n="lk.title"></h2>
+      <p class="mute" style="margin-top:8px;max-width:60ch" data-i18n="lk.hint"></p>
+    </div>
+    <div class="row"><span class="wallet"><span id="wallet-l"></span><button type="button" class="addc" data-adcoins data-i18n-aria="ad.plus" data-i18n-title="ad.plus">+</button></span><button class="btn ghost sm" data-go="back" data-i18n="nav.back"></button></div>
+  </div>
+  <div class="lk">
+    <div class="panel lk-view">
+      <canvas id="lkcv" width="360" height="440" role="img" data-i18n-aria="lk.alt"></canvas>
+      <div class="lk-name st" id="lk-name"></div>
+      <div class="lk-act" id="lk-act"></div>
+    </div>
+    <div class="panel lk-shop">
+      <div class="tabs" id="lk-tabs" role="tablist"></div>
+      <div class="items" id="lk-items"></div>
+    </div>
+  </div>
+</section>
+
+<section id="scr-editor" hidden>
+  <div class="head">
+    <div>
+      <div class="eyebrow" data-i18n="ed.eyebrow"></div>
+      <h2 data-i18n="ed.title"></h2>
+      <p class="mute" style="margin-top:8px;max-width:60ch" data-i18n="ed.desc"></p>
+    </div>
+    <button class="btn ghost sm" data-go="back" data-i18n="nav.back"></button>
+  </div>
+  <div class="eds" id="eds"></div>
+  <div class="panel stack" id="bgbox" style="margin-top:18px"></div>
+</section>
+
+  <!-- monedas gratis viendo un anuncio (botón + junto al dinero) -->
+  <div class="ctrl-ov" id="ad-ov" hidden>
+    <div class="ctrl-card ad-card" role="dialog" aria-modal="true" aria-labelledby="ad-h">
+      <div class="ad-coin" aria-hidden="true"></div>
+      <h2 id="ad-h" data-i18n="ad.title"></h2>
+      <p id="ad-msg"></p>
+      <div class="ad-btns"><button type="button" class="btn" id="ad-go" data-i18n="ad.watch"></button><button type="button" class="btn ghost" id="ad-x" data-i18n="ad.no"></button></div>
+    </div>
+  </div>
+</div>
+
+<!-- scripts en orden: cada archivo usa lo definido en los anteriores -->
+<script src="config.js"></script>
+<script src="storage.js"></script>
+<script src="i18n.js"></script>
+<script src="profile.js"></script>
+<script src="audio.js"></script>
+<script src="poki.js"></script>
+<script src="gear.js"></script>
+<script src="art.js"></script>
+<script src="input.js"></script>
+<script src="ai.js"></script>
+<script src="fight.js"></script>
+<script src="render.js"></script>
+<script src="ui.js"></script>
+<script src="tour.js"></script>
+<script src="locker.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+/* fonts.css · tipografías incluidas en el juego (sin pedir nada a internet). Licencia SIL Open Font License: ver OFL-*.txt
+   Son recortes con solo los signos que usa el juego; el árabe y el chino solo se descargan si se elige ese idioma. */
+@font-face{font-family:'Big Shoulders Display';font-style:normal;font-weight:700;font-display:swap;src:url(bigshoulders-700.woff) format('woff')}
+@font-face{font-family:'Big Shoulders Display';font-style:normal;font-weight:800;font-display:swap;src:url(bigshoulders-800.woff) format('woff')}
+@font-face{font-family:'Big Shoulders Display';font-style:normal;font-weight:900;font-display:swap;src:url(bigshoulders-900.woff) format('woff')}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:400;font-display:swap;src:url(barlow-400.woff) format('woff')}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:600;font-display:swap;src:url(barlow-600.woff) format('woff')}
+@font-face{font-family:'Noto Sans Arabic';font-style:normal;font-weight:500;font-display:swap;src:url(notoarabic-500.woff) format('woff')}
+@font-face{font-family:'Noto Sans Arabic';font-style:normal;font-weight:800;font-display:swap;src:url(notoarabic-800.woff) format('woff')}
+@font-face{font-family:'Noto Sans Arabic';font-style:normal;font-weight:900;font-display:swap;src:url(notoarabic-900.woff) format('woff')}
+@font-face{font-family:'Noto Sans SC';font-style:normal;font-weight:500;font-display:swap;src:url(notosc-500.woff) format('woff')}
+@font-face{font-family:'Noto Sans SC';font-style:normal;font-weight:800;font-display:swap;src:url(notosc-800.woff) format('woff')}
+@font-face{font-family:'Noto Sans SC';font-style:normal;font-weight:900;font-display:swap;src:url(notosc-900.woff) format('woff')}
